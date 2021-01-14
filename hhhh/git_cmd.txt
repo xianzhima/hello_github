@@ -24,13 +24,15 @@ git branch  -a
 git branch 
 
 
-git checkout [新分支名]
+git checkout [分支名]
 
 git checkout  -b [新分支名]
 
 git checkout master
-git merqe [分支名]
+git merge [分支名]
 
+
+git branch  -d [分支名]
 
 
 
