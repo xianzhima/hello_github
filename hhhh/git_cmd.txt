@@ -17,6 +17,28 @@ git reset --mixed [版本号]
 git reset --soft [版本号]
 
 
+git branch [新分支名]
+
+git branch  -a
+
+git branch 
+
+
+git checkout [新分支名]
+
+git checkout  -b [新分支名]
+
+git checkout master
+git merqe [分支名]
+
+
+
+
+
+
+
+
+
 
 
 
