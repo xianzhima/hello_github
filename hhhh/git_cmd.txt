@@ -31,7 +31,8 @@ git checkout  -b [新分支名]
 git checkout master
 git merge [分支名]
 
-git branch  -d
+git branch -d [分支名]
+
 
 
 
