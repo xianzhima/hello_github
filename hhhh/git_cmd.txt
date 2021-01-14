@@ -1,0 +1,25 @@
+git init 
+
+git status 
+
+git add [目录]
+
+git commit -m '声明'
+
+git log
+
+git reflog
+
+git reset --hard [版本号]
+
+git reset --mixed [版本号]
+
+git reset --soft [版本号]
+
+
+
+
+
+
+
+
