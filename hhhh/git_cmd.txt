@@ -24,14 +24,23 @@ git branch  -a
 git branch 
 
 
+<<<<<<< HEAD
 git checkout [新分支名]
+=======
+git checkout [分支名]
+>>>>>>> 7b6f8faa436245d6540ebfe2ca4a4203c8b6f5a0
 
 git checkout  -b [新分支名]
 
 git checkout master
 git merge [分支名]
 
+<<<<<<< HEAD
 git branch -d [分支名]
+=======
+
+git branch  -d [分支名]
+>>>>>>> 7b6f8faa436245d6540ebfe2ca4a4203c8b6f5a0
 
 
 
