@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+    <head>
+        <title>MyHtml.html</title>
+        <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+        <meta http-equiv="description" content="this is my page">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <script type= "text/javascript" src="jquery-1.4.2.js">
+        </script>
+        <script type="text/javascript">
+            
+            $(function(){
+                //定位光标
+                $("#keyword").focus();
+                //键盘按下时，显示候选关键字
+                $("#keyword").keyup(function(){
+                    var keywords = $(this).val();
+                    
+                    if (keywords) {
+                        $(".message_area").show();
+                    }
+                    else {
+                        $(".message_area").hide();
+                    }
+                });
+                
+                //鼠标移到候选词上变色
+                $(".message_area>li").hover(function(){
+                    $(this).addClass("baiduClass");
+                }, function(){
+                    $(this).removeClass("baiduClass");
+                });
+                
+                $("#keyword").blur(function(){
+                    $(".message_area").hide();
+                })
+                
+                $(window).keydown(function(event){
+                    switch (event.keyCode) {
+                        case 38:{
+                            if ($(".baiduClass").size()==0) {
+                                $(".message_area>li:last-child").addClass("baiduClass");
+                            }
+                            else {
+                                if ($(".baiduClass").prev().size()==0) {
+                                    $(".message_area>li:first-child").removeClass("baiduClass");
+                                    $(".message_area>li:last-child").addClass("baiduClass");
+                                }
+                                else {
+                                    $(".baiduClass").removeClass("baiduClass").prev().addClass("baiduClass");
+                                }
+                            }
+                            var text = $(".baiduClass").text();
+                            
+                            $("#keyword").val(text);
+                            break;
+                        }
+                        
+                        case 40:{
+                            if ($(".baiduClass").size()==0) {
+                                $(".message_area>li:first-child").addClass("baiduClass");
+                            }
+                            else {
+                                if ($(".baiduClass").next().size()==0) {
+                                    $(".message_area>li:first-child").addClass("baiduClass");
+                                    $(".message_area>li:last-child").removeClass("baiduClass");
+                                }
+                                else {
+                                    $(".baiduClass").removeClass("baiduClass").next().addClass("baiduClass");
+                                }
+                            }
+                            var text = $(".baiduClass").text();
+                            
+                            $("#keyword").val(text);
+                            break;
+                        }
+                    }
+                })
+            })
+        </script>
+    </head>
+    <style type="text/css">
+        #keyword {
+            width: 400px;
+            font-size: 25px;
+        }
+		 #BaiduButtom{
+            font-size: 25px;
+        }.baiduClass {
+            background: red;
+        }
+        
+        li {
+            list-style: none;
+        } .message_area {
+            width: 400px;
+            border: 1px solid #999999;
+            margin-left: -87px;
+            margin-top: -2px;
+            display: none;
+        } .message_area li {
+            list-style: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <body>
+            <div  align="center">
+                <input type="text" id="keyword" name="keyword"  value="中国好声音"/>
+				<input type="button" value="百度一下" id="baiduButtom">
+
+
+                <div class="message_area" align="left">
+                
+                    <li>
+                        中国人
+                    </li>
+                    <li>
+                        中国长城
+                    </li>
+                    <li>
+                        中国好爸爸
+                    </li>
+                </div>
+            </div>
+    </body>
+</html>

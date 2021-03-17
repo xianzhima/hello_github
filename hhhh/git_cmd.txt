@@ -1,3 +1,19 @@
+设置Git账户
+
+- git config user.name（查看git账户）
+- git config user.email（查看git邮箱）
+- git config --global user.name “账户名”（设置全局账户名）
+- git config --global user.email “邮箱”（设置全局邮箱）
+- cd ~/.ssh（查看是否生成过SSH公钥）
+
+生成SSH公钥
+
+- 生成命令: ssh-keygen –t rsa –C “邮箱” ( 注意：这里需要敲3次回车)
+
+命令
+git remote add 远程名称 远程仓库URL
+git push -u 仓库名称 分支名
+
 git init 
 
 git status 

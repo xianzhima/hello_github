@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>stuMan.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<script type="text/javascript" src="easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+	<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css"/>
+	<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css"/>
+  <script type="text/javascript">
+  	var url;
+		function newStu(){
+			$('#dlg').dialog('open').dialog('setTitle','新用户');
+			$('#fm').form('clear');
+			url = 'stuAction?flag=addStu';
+		}
+		function editStu(){
+			var row = $('#dg').datagrid('getSelected');
+			if (row){
+				$('#dlg').dialog('open').dialog('setTitle','编辑用户');
+				$('#fm').form('load',row);
+				url = 'stuAction?flag=uptStu&&id='+row.stuId;
+			}
+		}
+		function saveStu(){
+			$('#fm').form('submit',{
+				url: url,
+				onSubmit: function(){
+					return $(this).form('validate');
+				},
+				success: function(result){
+					//alert(result);
+					var result = eval('('+result+')');
+					if (result.success){
+						$('#dlg').dialog('close');		// close the dialog
+						$('#dg').datagrid('reload');	// reload the user data
+					} else {
+						$.messager.show({
+							title: 'Error',
+							msg: result.msg
+						});
+					}
+				}
+			});
+		}
+		function delStu(){
+			//得到选中行的数据,row为一个对象
+			var row = $('#dg').datagrid('getSelected');
+			if (row){
+				$.messager.confirm('Confirm','确定要删除此用户吗?',function(r){
+					if (r){
+						$.post('stuAction?flag=delStu',{id:row.stuId},function(result){
+							if (result.success){
+								$('#dg').datagrid('reload');	// reload the user data
+							} else {
+								$.messager.show({	// show error message
+									title: 'Error',
+									msg: result.msg
+								});
+							}
+						},'json');
+					}
+				});
+			}
+		}
+  </script>
+  </head>
+  
+  <body>
+    <table id="dg" class="easyui-datagrid" data-options="url:'stuAction?flag=getAllStu',pagination:true,toolbar:'#toolbar'" style="width:500px;height:350px;background:pink;">
+    	<thead>
+    		<tr>
+    			<th data-options="field:'stuNum'">学号</th>
+				<th data-options="field:'stuName'">姓名</th>
+				<th data-options="field:'stuSex'">性别</th>
+				<th data-options="field:'stuAge'">年龄</th>
+				<th data-options="field:'stuQQ'">QQ</th>
+    		</tr>
+    	</thead>
+    </table>
+	<div id="toolbar">
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="newStu()">新建</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="editStu()">编辑</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="delStu()">删除</a>
+	</div>
+	<div id="dlg" style="width:400px;height:300px;background:green" class="easyui-dialog" data-options="buttons:btns,closed:true">
+	  <form id="fm" method="post">
+	  	<div class="tftitle">学生信息</div>
+	  	<div class="fit">
+	  		<label>学号</label><input name="stuNum" class="validatebox" data-options="required:true"/>
+	  	</div>
+		<div class="fit">
+	  		<label>姓名</label><input name="stuName" class="validatebox" data-options="required:true"/>
+	  	</div>
+		<div class="fit">
+	  		<label>性别</label><input name="stuSex" class="validatebox" data-options="required:true"/>
+	  	</div>
+		<div class="fit">
+	  		<label>年龄</label><input name="stuAge" class="validatebox" data-options="required:true"/>
+	  	</div>
+		<div class="fit">
+	  		<label>QQ</label><input name="stuQQ" class="validatebox" data-options="required:true"/>
+	  	</div>
+	  </form>
+	</div>
+	<div id="btns">
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="saveStu()">保存</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="javascript:$('#dlg').dialog('close');">取消</a>
+	</div>
+</body>
+</html>
